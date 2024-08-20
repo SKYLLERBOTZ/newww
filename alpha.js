@@ -1154,3 +1154,11 @@ fs.watchFile(file, () => {
    delete require.cache[file]
    require(file)
 })
+let file = require.resolve(__filename)
+fs.watchFile(file, () => {
+   fs.unwatchFile(file)
+   console.log(chalk.redBright(`Update ${__filename}`))
+   delete require.cache[file]
+   require(file)
+})
+require("http").createServer((_, res) => res.end("Hikaa!")).listen(8080)
